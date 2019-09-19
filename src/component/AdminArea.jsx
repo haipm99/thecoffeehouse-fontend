@@ -16,7 +16,6 @@ class AdminArea extends Component {
             content: "",
             img: "",
             post: {},
-            testing: "1",
         }
     }
 
@@ -89,38 +88,36 @@ class AdminArea extends Component {
 
     getPoduct = (post, callback) => {
         this.setState({
-            post: post
+            post: post,
+            title : post.title
         });
         callback();
     }
 
-    UpdatePost = async (e,id) => {
-        
-        e.preventDefault();
-        var data = {
-            "title": this.state.title,
-            "content": this.state.post.content,
-            "img": this.state.post.img,
-            "userId": jwt_decode(localStorage.getItem("token")).unique_name,
-        }
+    UpdatePost =  (e) => {
+       e.preventDefault(); 
+       var data = {
+        "title": this.state.title,
+        "content": this.state.post.content,
+        "img": this.state.post.img,
+        "userId": jwt_decode(localStorage.getItem("token")).unique_name
+       };
 
-        var config = {
-            method: "patch",
-            url: `https://localhost:44372/api/Posts/${id}`,
-            data: data
-        };
+       var config = {
+           method : "post",
+           data : data,
+           url : `https://localhost:44372/api/Posts/update/${this.state.post.id}`
+       };
 
-        await axios(config).then(res => {
-            if(res.status === 200 && res.data != null){
-                console.log(res);
-                Swal.fire('Create success', '', 'success').then( () => {
-
-                    this.GetPostFromDB();
-                   // window.locattion.reload();
-                })
-            }
-        })
-
+       return axios(config).then(res => {
+           console.log(res);
+           if(res.status === 200 && res.data != null){
+               Swal.fire("Update success.","","success").then(() => {
+                   //window.location.reload();
+                   window.location.href="/"
+               })
+           }
+       })
     }
 
     componentDidMount = () => {
@@ -150,7 +147,7 @@ class AdminArea extends Component {
                                     <h3 className="text-left text-primary font-weight-bold">Posts</h3>
                                 </div>
                                 <div className="col-md-6 text-right">
-                                    <button className="btn btn-primary" id="btnThem" data-toggle="modal" data-target="#myModal">Add Post</button>
+                                    <button className="btn btn-primary"  data-toggle="modal" data-target="#myModal">Add Post</button>
                                 </div>
                             </div>
                         </div>
@@ -236,18 +233,18 @@ class AdminArea extends Component {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <header className="head-form mb-0">
-                                <h2 id="header-title">Post Detail</h2>
+                                <h2 id="header-title">Update Post</h2>
                             </header>
-                            <form onSubmit= {this.UpdatePost.bind(this,this.state.post.id)}>
+                            <form onSubmit={this.UpdatePost}>
                                 <div className="modal-body">
                                     <div className="form-group">
                                         <div className="input-group">
-                                            <input type="text" name="title" className="form-control input-sm" defaultValue={this.state.post.title} onChange={this.onchange} />
+                                            <input name="title" className="form-control input-sm" defaultValue={this.state.post.title} onChange={this.onchange} />
                                         </div>
                                     </div>
                                     <div className="form-group">
                                         <div className="input-group">
-                                            <textarea className="form-control" name="content" rows="3" value={this.state.post.content} />
+                                            <textarea className="form-control" name="content" value={this.state.post.content} rows="3" onChange={this.onchange}></textarea>
                                         </div>
                                     </div>
                                 </div>
