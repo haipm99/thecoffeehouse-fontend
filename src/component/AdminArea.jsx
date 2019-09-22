@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+import '../css/animate.css';
+import '../css/bootstrap.min.css';
+import '../css/modal.css';
+import '../css/style4.css';
+import '../css/main.css';
 //import axios
 
 import axios from 'axios';
@@ -54,12 +59,15 @@ class AdminArea extends Component {
     }
 
     CreatePost = (e) => {
+        var img = this.state.img.split("\\");
+        var length = img.length;
+        e.preventDefault();
         e.preventDefault();
         if (this.state.title !== "" && this.state.content !== "" && this.state.img !== "") {
             var data = {
                 "title": this.state.title,
                 "content": this.state.content,
-                "img": this.state.img,
+                "img": img[length-1],
                 "userId": jwt_decode(localStorage.getItem("token")).unique_name
             };
             var config = {

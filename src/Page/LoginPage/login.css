@@ -1,0 +1,8 @@
+.login-container{
+    background-image: url("/img/Login/login.jpg") !important;
+    background-size: cover !important;
+}
+
+.myform{
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}

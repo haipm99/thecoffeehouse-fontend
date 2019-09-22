@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+
+import '../css/animate.css';
+import '../css/bootstrap.min.css';
+import '../css/modal.css';
+import '../css/style4.css';
+import '../css/main.css';
 //import axios
 import axios from 'axios';
 //import sweetalert
