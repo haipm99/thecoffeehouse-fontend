@@ -51,9 +51,9 @@ class MainPageMenu extends Component {
                         <h1 style={{ color: "orange" , borderBottom:"3px solid black", borderWidth:"3px" }}>Menu</h1>
                     </div>
                     <div className="Menu col-2 offset-8">
-                        <button className="btn btn-secondary">
+                        <a href="/order" className="btn btn-secondary">
                             Xem thêm tất cả sản phẩm
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div className="row offset-2 ">
