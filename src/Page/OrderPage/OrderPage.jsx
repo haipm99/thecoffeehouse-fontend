@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import NavBar from '../../component/NavBar';
 import ListItem from '../../component/MenuItem/ListMenu';
 import Menu from '../../component/AllMenu/Menu';
-import Cart from '../../component/Cart/MyCart';
+//import Cart from '../../component/Cart/MyCart';
 class OrderPage extends Component {
     render() {
         return (
@@ -13,7 +13,6 @@ class OrderPage extends Component {
                 <div className="row" style={{marginTop:"74px"}}>
                     <ListItem />
                     <Menu />
-                    <Cart />
                 </div>
             </div>
         );
