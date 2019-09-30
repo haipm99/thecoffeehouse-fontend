@@ -45,10 +45,10 @@ class Menu extends Component {
             price: item.price
         }
         var cart = JSON.parse(localStorage.getItem("cart"));
-
+        console.log(cart);
         cart.forEach(element => {
             if (element.id === itemAdd.id) {
-                element.quantity = element.quantity + 1;
+                element.quantity = parseInt(element.quantity )+ 1;
                 check = true;
             }
         });
