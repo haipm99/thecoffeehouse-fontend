@@ -73,25 +73,38 @@ class ManageProduct extends Component {
         return axios(config).then(res => {
             if (res.status === 200 && res.data !== null) {
                 Swal.fire("Add success.", "", "success").then(() => {
-                    window.location.href = "/manageProducts"
+                    window.location.href = "/manageProducts?page=0"
                 })
             }
         })
     }
 
     DeleteProduct = (id) => {
-        var config = {
-            method: "delete",
-            url: `https://localhost:44372/api/Products/${id}`
-        };
+        Swal.fire({
+            title: 'Are you sure to delete this product ?',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                var config = {
+                    method: "delete",
+                    url: `https://localhost:44372/api/Products/${id}`
+                };
 
-        return axios(config).then(res => {
-            if (res.status === 200 && res.data !== null) {
-                Swal.fire("Delete Success.", "", "success").then(() => {
-                    this.GetProductsFromDb();
+                return axios(config).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        Swal.fire("Delete Success.", "", "success").then(() => {
+                            this.GetProductsFromDb();
+                        })
+                    }
                 })
             }
         })
+
     }
 
     SetModal = (model) => {
@@ -104,7 +117,7 @@ class ManageProduct extends Component {
         e.preventDefault();
         if (this.state.img === "") {
             var data = {
-                "name": this.state.name,
+                "name": this.state.name === "" ? this.state.product.name : this.state.name,
                 "description": this.state.product.description,
                 "img": this.state.product.img,
                 "price": this.state.price === 0 ? this.state.product.price : this.state.price,
@@ -153,7 +166,7 @@ class ManageProduct extends Component {
     render() {
         const elm = this.state.products !== [] ? this.state.products.map((item, index) => {
             var a = (new URLSearchParams(window.location.search));
-            if (index >= (3*(a.toString().split("=")[1])) && index <= (3*(a.toString().split("=")[1])) + 2) {
+            if (index >= (3 * (a.toString().split("=")[1])) && index <= (3 * (a.toString().split("=")[1])) + 2) {
                 return (
                     <tr>
                         <td>{item.name}</td>
@@ -169,7 +182,7 @@ class ManageProduct extends Component {
                     </tr>
                 );
             }
-            else{
+            else {
                 return (null);
             }
 
@@ -178,7 +191,7 @@ class ManageProduct extends Component {
             if (index % 3 === 0) {
                 return (
                     <li className="page-item">
-                        <a className="page-link" href={`http://localhost:3000/manageProducts?page=${index /3}`}>{index / 3 + 1}</a>
+                        <a className="page-link" href={`http://localhost:3000/manageProducts?page=${index / 3}`}>{index / 3 + 1}</a>
                     </li>
                 )
             }

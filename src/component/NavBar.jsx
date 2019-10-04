@@ -42,13 +42,13 @@ class NavBar extends Component {
                         <a className="nav-link" href="/" style={{ border: "2px solid black" }}>Chuyện cà phê</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/" style={{ border: "2px solid black" }}>Thực đơn</a>
+                        <a className="nav-link" href="/order" style={{ border: "2px solid black" }}>Thực đơn</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/" style={{ border: "2px solid black" }}>Ưu đãi thành viên</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/" style={{ border: "2px solid black" }}>Tin tức</a>
+                        <a className="nav-link" href="/post" style={{ border: "2px solid black" }}>Tin tức</a>
                     </li>
                 </ul>
                 {

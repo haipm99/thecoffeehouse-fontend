@@ -32,10 +32,11 @@ class MainPost extends Component {
     render() {
         const postEml = this.state.posts !== [] ? this.state.posts.map((item, index) => {
             return (
-                <div className="card mr-3 mb-3" style={{ width: '25vw' }}>
+                <div  className="card mr-3 mb-3" style={{ width: '25vw' }}>
                     <img src={`/img/Posts/${item.img}`} className="card-img-top" alt="/" style={{ height: '200px' }}/>
                     <div className="card-body" style={{borderTop:"2px solid black"}}>
                         <h5 className="card-title">{item.title}</h5>
+                        <a href={`/post?id=${item.id}`} className="btn btn-success" >Xem chi tiết</a>
                     </div>
                 </div>
             )

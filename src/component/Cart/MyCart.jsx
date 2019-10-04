@@ -27,6 +27,15 @@ class MyCart extends Component {
         })
     }
 
+    finishPay = () => {
+        var cart = JSON.parse(localStorage.getItem("cart"));
+        cart = [];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        this.setState({
+            click: "0"
+        })
+    }
+
     deleteCart = (item) => {
         var cart = JSON.parse(localStorage.getItem("cart"));
         var i = 0;
@@ -42,26 +51,34 @@ class MyCart extends Component {
         })
     }
 
+
+
     checkOutCart = (e) => {
-        e.preventDefault();
-        var cart = JSON.parse(localStorage.getItem("cart"));
-        //console.log(jwtDecode(localStorage.getItem("token")));
-        if (cart.length !== 0) {
-            var config = {
-                method: "post",
-                url: `https://localhost:44372/api/Buying/createInvoice/${jwtDecode(localStorage.getItem("token")).unique_name}`
-            }
-            axios(config).then(res => {
-                if (res.status === 200 && res.data !== null) {
-                    this.saveCartToDB(res.data.id)
+        if (localStorage.getItem("token")) {
+            e.preventDefault();
+            var cart = JSON.parse(localStorage.getItem("cart"));
+            //console.log(jwtDecode(localStorage.getItem("token")));
+            if (cart.length !== 0) {
+                var config = {
+                    method: "post",
+                    url: `https://localhost:44372/api/Buying/createInvoice/${jwtDecode(localStorage.getItem("token")).unique_name}`
                 }
-            })
+                axios(config).then(res => {
+                    if (res.status === 200 && res.data !== null) {
+                        this.saveCartToDB(res.data.id)
+                    }
+                })
+            }
+        }else{
+            swal.fire('Xin đăng nhập trước khi thanh toán.', '', 'error');
         }
+
     }
 
     saveCartToDB = (idCart) => {
         var cart = JSON.parse(localStorage.getItem("cart"));
         var check = false;
+        var total = 0;
         cart.forEach(item => {
             var data = {
                 "idPro": item.id,
@@ -69,6 +86,7 @@ class MyCart extends Component {
                 "quantity": item.quantity,
                 "total": item.quantity * item.price
             };
+            total = total + data.total;
             var config = {
                 method: "post",
                 url: "https://localhost:44372/api/Buying/createDetail",
@@ -82,7 +100,19 @@ class MyCart extends Component {
             })
         });
         if (!check) {
-            swal.fire('Đặt hàng thành công', '', 'success');
+            var config2 = {
+                method: "post",
+                url :`https://localhost:44372/api/Buying/UpdateTotal/${idCart}?total=${total}`
+            };
+            return axios(config2).then(res => {
+                if(res.status === 200){
+                    swal.fire('Đặt hàng thành công', '', 'success');
+                    this.finishPay();
+                }
+                else{
+                    swal.fire('Thanh toán thất bại.', '', 'error');
+                }
+            })
         }
     }
 
@@ -99,7 +129,7 @@ class MyCart extends Component {
             )
         }) : null;
         return (
-            <div className="col-3" style={{ height: "auto" }}>
+            <div className="col-3" style={{ height: "auto" , position:"fixed" , right:"200px" }}>
                 <table className="table">
                     <thead className="thead-dark">
                         <tr>

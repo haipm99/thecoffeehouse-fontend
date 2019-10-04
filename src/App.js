@@ -7,6 +7,7 @@ import ManagePost from './Page/ManagePost';
 import ManageProduct from './Page/ManageProduct';
 import MainPage from './Page/MainPage/MainPage';
 import OrderPage from './Page/OrderPage/OrderPage';
+import Post from './Page/PostPage/Post';
 function App() {
   return (
     <div className="App">
@@ -17,6 +18,7 @@ function App() {
             <Route path="/managePost" exact component={ManagePost} />
             <Route path="/manageProducts" exact component={ManageProduct} />
             <Route path="/order" exact component ={OrderPage} />
+            <Route path="/post" exact component ={Post} />
           </Switch>
         </Router>
     </div>

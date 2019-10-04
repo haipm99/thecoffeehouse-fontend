@@ -1,0 +1,7 @@
+.mycontainer{
+    background-image: url('/img/Banner/banner_post.jpg');
+    height: 500px;
+    background-repeat: no-repeat;
+    margin-top:75px;
+    background-size: cover;
+}
