@@ -21,9 +21,9 @@ class Sidebar extends Component {
                         </li>}
                         
                     {this.props.active === "bill" ? <li className="active">
-                            <a href="/manageBills"><i className="fa fa-home" />Manage Bills</a>
+                            <a href="/manageBills?page=0"><i className="fa fa-home" />Manage Bills</a>
                         </li> : <li>
-                                <a href="/manageBills"><i className="fa fa-home" />Manage Bills</a>
+                                <a href="/manageBills?page=0"><i className="fa fa-home" />Manage Bills</a>
                             </li>}
                 </ul>
             </nav>

@@ -3,8 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //component
 import Login from './Page/LoginPage/Login';
+//admin
 import ManagePost from './Page/ManagePost';
 import ManageProduct from './Page/ManageProduct';
+import ManageBill from './Page/ManageBill';
+//user
 import MainPage from './Page/MainPage/MainPage';
 import OrderPage from './Page/OrderPage/OrderPage';
 import Post from './Page/PostPage/Post';
@@ -17,6 +20,7 @@ function App() {
             <Route path="/login" exact component = {Login} />
             <Route path="/managePost" exact component={ManagePost} />
             <Route path="/manageProducts" exact component={ManageProduct} />
+            <Route path="/manageBills" exact component ={ManageBill} />
             <Route path="/order" exact component ={OrderPage} />
             <Route path="/post" exact component ={Post} />
           </Switch>

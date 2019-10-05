@@ -27,12 +27,28 @@ class MyCart extends Component {
         })
     }
 
-    finishPay = () => {
-        var cart = JSON.parse(localStorage.getItem("cart"));
-        cart = [];
-        localStorage.setItem("cart", JSON.stringify(cart));
-        this.setState({
-            click: "0"
+    finishPay = (id) => {
+        var data = {
+            "id": id,
+            "description": localStorage.getItem("desc")
+        };
+        var config = {
+            url: "https://localhost:44372/api/Buying/UpdateDescription",
+            method: "post",
+            data: data
+        };
+        axios(config).then((res) => {
+            if (res.status === 200) {
+                var cart = JSON.parse(localStorage.getItem("cart"));
+                cart = [];
+                console.log(localStorage.getItem("desc"));
+                localStorage.setItem("cart", JSON.stringify(cart));
+                localStorage.removeItem("desc");
+                this.setState({
+                    click: "0"
+                });
+                swal.fire('Đặt hàng thành công', '', 'success');
+            }
         })
     }
 
@@ -57,7 +73,6 @@ class MyCart extends Component {
         if (localStorage.getItem("token")) {
             e.preventDefault();
             var cart = JSON.parse(localStorage.getItem("cart"));
-            //console.log(jwtDecode(localStorage.getItem("token")));
             if (cart.length !== 0) {
                 var config = {
                     method: "post",
@@ -69,7 +84,7 @@ class MyCart extends Component {
                     }
                 })
             }
-        }else{
+        } else {
             swal.fire('Xin đăng nhập trước khi thanh toán.', '', 'error');
         }
 
@@ -79,6 +94,7 @@ class MyCart extends Component {
         var cart = JSON.parse(localStorage.getItem("cart"));
         var check = false;
         var total = 0;
+        var description = "";
         cart.forEach(item => {
             var data = {
                 "idPro": item.id,
@@ -87,6 +103,7 @@ class MyCart extends Component {
                 "total": item.quantity * item.price
             };
             total = total + data.total;
+            description = description + item.name + "  " + item.quantity + "  " + item.price + "  " + item.quantity * item.price+"\n";
             var config = {
                 method: "post",
                 url: "https://localhost:44372/api/Buying/createDetail",
@@ -102,14 +119,15 @@ class MyCart extends Component {
         if (!check) {
             var config2 = {
                 method: "post",
-                url :`https://localhost:44372/api/Buying/UpdateTotal/${idCart}?total=${total}`
+                url: `https://localhost:44372/api/Buying/UpdateTotal/${idCart}?total=${total}`
             };
             return axios(config2).then(res => {
-                if(res.status === 200){
-                    swal.fire('Đặt hàng thành công', '', 'success');
-                    this.finishPay();
+                if (res.status === 200) {
+                   
+                    localStorage.setItem("desc", description);
+                    this.finishPay(idCart);
                 }
-                else{
+                else {
                     swal.fire('Thanh toán thất bại.', '', 'error');
                 }
             })
@@ -129,7 +147,7 @@ class MyCart extends Component {
             )
         }) : null;
         return (
-            <div className="col-3" style={{ height: "auto" , position:"fixed" , right:"200px" }}>
+            <div className="col-3" style={{ height: "auto", position: "fixed", right: "200px" }}>
                 <table className="table">
                     <thead className="thead-dark">
                         <tr>
