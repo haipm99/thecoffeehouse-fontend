@@ -7,6 +7,7 @@ import Login from './Page/LoginPage/Login';
 import ManagePost from './Page/ManagePost';
 import ManageProduct from './Page/ManageProduct';
 import ManageBill from './Page/ManageBill';
+import DarshBoard from './Page/DashPage';
 //user
 import MainPage from './Page/MainPage/MainPage';
 import OrderPage from './Page/OrderPage/OrderPage';
@@ -21,6 +22,7 @@ function App() {
             <Route path="/managePost" exact component={ManagePost} />
             <Route path="/manageProducts" exact component={ManageProduct} />
             <Route path="/manageBills" exact component ={ManageBill} />
+            <Route path="/darshboard" exact component ={DarshBoard} />
             <Route path="/order" exact component ={OrderPage} />
             <Route path="/post" exact component ={Post} />
           </Switch>

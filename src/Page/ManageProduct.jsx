@@ -4,7 +4,7 @@ import Content from '../component/ManageProduct';
 class ManageProduct extends Component {
     render() {
         return (
-            <div className="row">
+            <div>
                 <Sidebar active="product"/>
                 <Content/>
             </div>

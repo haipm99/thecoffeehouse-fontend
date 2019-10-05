@@ -30,7 +30,7 @@ class MyCart extends Component {
     finishPay = (id) => {
         var data = {
             "id": id,
-            "description": localStorage.getItem("desc")
+            "description": localStorage.getItem("desc")+";"+localStorage.getItem("quantity")
         };
         var config = {
             url: "https://localhost:44372/api/Buying/UpdateDescription",
@@ -41,7 +41,6 @@ class MyCart extends Component {
             if (res.status === 200) {
                 var cart = JSON.parse(localStorage.getItem("cart"));
                 cart = [];
-                console.log(localStorage.getItem("desc"));
                 localStorage.setItem("cart", JSON.stringify(cart));
                 localStorage.removeItem("desc");
                 this.setState({
@@ -95,6 +94,7 @@ class MyCart extends Component {
         var check = false;
         var total = 0;
         var description = "";
+        var quantity = 0;
         cart.forEach(item => {
             var data = {
                 "idPro": item.id,
@@ -104,6 +104,7 @@ class MyCart extends Component {
             };
             total = total + data.total;
             description = description + item.name + "  " + item.quantity + "  " + item.price + "  " + item.quantity * item.price+"\n";
+            quantity = quantity + item.quantity;
             var config = {
                 method: "post",
                 url: "https://localhost:44372/api/Buying/createDetail",
@@ -125,6 +126,7 @@ class MyCart extends Component {
                 if (res.status === 200) {
                    
                     localStorage.setItem("desc", description);
+                    localStorage.setItem("quantity",quantity);
                     this.finishPay(idCart);
                 }
                 else {

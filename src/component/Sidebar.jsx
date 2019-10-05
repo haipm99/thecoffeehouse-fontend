@@ -8,23 +8,28 @@ class Sidebar extends Component {
 
                 </div>
                 <ul className="list-unstyled components" style={{ border: "none" }}>
-                    {this.props.active === "post" ? <li className="active">
-                        <a href="/managePost"><i className="fa fa-home" />Manage Posts</a>
+                    {this.props.active === "darsh" ? <li className="active">
+                        <a href="/darshboard"><i className="fa fa-home" />Darshboard</a>
                     </li> : <li>
-                            <a href="/managePost"><i className="fa fa-home" />Manage Posts</a>
+                            <a href="/darshboard"><i className="fa fa-home" />Darshboard</a>
+                        </li>}
+                    {this.props.active === "post" ? <li className="active">
+                        <a href="/managePost"><i className="fa fa-clipboard" />Manage Posts</a>
+                    </li> : <li>
+                            <a href="/managePost"><i className="fa fa-clipboard" />Manage Posts</a>
                         </li>}
 
                     {this.props.active === "product" ? <li className="active">
-                        <a href="/manageProducts?page=0"><i className="fa fa-home" />Manage Products</a>
+                        <a href="/manageProducts?page=0"><i className="fa fa-gift" />Manage Products</a>
                     </li> : <li>
-                            <a href="/manageProducts?page=0"><i className="fa fa-home" />Manage Products</a>
+                            <a href="/manageProducts?page=0"><i className="fa fa-gift" />Manage Products</a>
                         </li>}
-                        
+
                     {this.props.active === "bill" ? <li className="active">
-                            <a href="/manageBills?page=0"><i className="fa fa-home" />Manage Bills</a>
-                        </li> : <li>
-                                <a href="/manageBills?page=0"><i className="fa fa-home" />Manage Bills</a>
-                            </li>}
+                        <a href="/manageBills?page=0"><i className="fa fa-wallet" />Manage Bills</a>
+                    </li> : <li>
+                            <a href="/manageBills?page=0"><i className="fa fa-wallet" />Manage Bills</a>
+                        </li>}
                 </ul>
             </nav>
         );

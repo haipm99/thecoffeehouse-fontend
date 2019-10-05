@@ -4,7 +4,7 @@ import Content from '../component/AdminArea';
 class ManagePost extends Component {
     render() {
         return (
-            <div className="row">
+            <div>
                 <Sidebar active = "post"/>
                 <Content />
             </div>
