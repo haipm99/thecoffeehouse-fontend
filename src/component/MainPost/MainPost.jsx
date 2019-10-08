@@ -42,7 +42,7 @@ class MainPost extends Component {
             )
         }) : null;
         return (
-            <div className="container-fluid main-background" style={{ width: "100%", height: "100vh", paddingTop: "150px" }}>
+            <div className="container-fluid main-background" style={{ width: "100%", height: "auto", paddingTop: "150px" }}>
                 <div className="offset-2 row" style={{ width: "70vw", height: "100px" }}>
                     <div className="MenuContent col-1">
                         <h1 style={{ color: "orange", borderBottom: "3px solid white", borderWidth: "5px" }}>POST</h1>
@@ -53,7 +53,7 @@ class MainPost extends Component {
                         </button>
                     </div>
                 </div>
-                <div className="offset-2 row" style={{ width: "70vw", height: "100px" }}>
+                <div className="offset-2 row" style={{ width: "70vw", height: "auto" }}>
                     {postEml}
                 </div>
             </div>

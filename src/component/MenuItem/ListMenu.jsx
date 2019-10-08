@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ListMenu extends Component {
     render() {
         return (
-            <div className="col-2 pt-5" style={{ height: "auto" }}>
+            <div className="col-2 pt-5" style={{ height: "auto"}}>
                 <div className="card" style={{ width: '12rem' }}>
                     <div className="card-header" style={{borderBottom:"2px solid orange"}}>
                         Menu

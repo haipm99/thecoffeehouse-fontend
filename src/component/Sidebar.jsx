@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 
 class Sidebar extends Component {
+    LogOut = () => {
+        if (localStorage.getItem('token')) {
+            localStorage.removeItem("token");
+            window.location.href = "/";
+        }
+    }
     render() {
+
         return (
             <nav id="sidebar">
                 <div className="sidebar-header">
-
                 </div>
                 <ul className="list-unstyled components" style={{ border: "none" }}>
                     {this.props.active === "darsh" ? <li className="active">
@@ -30,6 +36,8 @@ class Sidebar extends Component {
                     </li> : <li>
                             <a href="/manageBills?page=0"><i className="fa fa-wallet" />Manage Bills</a>
                         </li>}
+                    <button className="btn btn-success w-100" onClick={this.LogOut}>Log out</button>
+
                 </ul>
             </nav>
         );

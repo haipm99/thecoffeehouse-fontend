@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
+//import sweet alert
+import Swal from "sweetalert2";
 //import css
 import './login.css';
-
 //import axios
 import axios from 'axios';
 //jwtdecode
@@ -27,8 +28,7 @@ class Login extends Component {
                 "password":this.state.password,
             }
         };
-
-        return  axios(config).then(res => {
+       return  axios(config).then(res => {
             if(res.status === 200 && res.data !== null){
                 localStorage.setItem("token",res.data.access_token);
                 if(jwt(res.data.access_token).role === "admin"){
@@ -38,7 +38,9 @@ class Login extends Component {
                     window.location.href = "/";
                 }
             }
-        }) 
+        }).catch(err=>{
+            Swal.fire("Wrong username or password", "", "error");
+        })
     }
 
     onchange = (e) => {

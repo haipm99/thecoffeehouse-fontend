@@ -8,7 +8,7 @@ class Footer extends Component {
               <div className="row">
                 <div className="col-md-6 mt-md-0 mt-3 offset-2">
                   <h5 className="text-uppercase">
-                      <img src="/img/footer/footer_logi.png" alt="/" style={{width : "200px"}}/>
+                      <img src="/img/footer/footer_logi.png" alt="/" style={{width : "150px"}}/>
                   </h5>
                 </div>
                 <hr className="clearfix w-100 d-md-none pb-3" />

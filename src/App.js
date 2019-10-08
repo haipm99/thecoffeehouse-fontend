@@ -12,6 +12,7 @@ import DarshBoard from './Page/DashPage';
 import MainPage from './Page/MainPage/MainPage';
 import OrderPage from './Page/OrderPage/OrderPage';
 import Post from './Page/PostPage/Post';
+import Story from './Page/Story/Story';
 function App() {
   return (
     <div className="App">
@@ -25,6 +26,7 @@ function App() {
             <Route path="/darshboard" exact component ={DarshBoard} />
             <Route path="/order" exact component ={OrderPage} />
             <Route path="/post" exact component ={Post} />
+            <Route path="/story" exact component ={Story} />
           </Switch>
         </Router>
     </div>

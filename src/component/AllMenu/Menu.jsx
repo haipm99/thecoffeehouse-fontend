@@ -9,7 +9,8 @@ class Menu extends Component {
         this.state = {
             drinks: [],
             cart: [],
-            click: ""
+            click: "",
+            drinksTempt : []
         }
     }
 
@@ -29,10 +30,30 @@ class Menu extends Component {
         return axios(config).then(res => {
             if (res.status === 200 && res.data !== null) {
                 this.setState({
-                    drinks: res.data
+                    drinksTempt: res.data,
+                    drinks : res.data
                 })
             }
         })
+    }
+
+    LiveSearch = (e) =>{
+        var name = e.target.value
+        if(name === ""){
+            this.setState({
+                drinks : this.state.drinksTempt
+            });
+        } else{
+            var arr = [];
+            this.state.drinksTempt.forEach((item) => {
+                if(item.name.toUpperCase().includes(name.toUpperCase())){
+                    arr.push(item);
+                }
+            })
+            this.setState({
+                drinks : arr
+            })
+        }
     }
 
 
@@ -48,7 +69,7 @@ class Menu extends Component {
         console.log(cart);
         cart.forEach(element => {
             if (element.id === itemAdd.id) {
-                element.quantity = parseInt(element.quantity )+ 1;
+                element.quantity = parseInt(element.quantity) + 1;
                 check = true;
             }
         });
@@ -75,11 +96,18 @@ class Menu extends Component {
             )
         }) : null
         return (
-            <div className="col-8 pt-5 row">
-                <div className="col-9 row" style={{ height: "auto" }}>
-                    {menuItem}
+            <div className="col-8 pt-5">
+                <div className="input-group" style={{ width: "300px", marginBottom: "20px" }}>
+                    <div className="row">
+                        <input onChange = {this.LiveSearch} type="text" className="form-control" placeholder="search" />
+                    </div>
                 </div>
-                <Cart />
+                <div className="row">
+                    <div className="col-9 row" style={{ height: "auto" }}>
+                        {menuItem}
+                    </div>
+                    <Cart />
+                </div>
             </div>
 
         );
