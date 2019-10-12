@@ -13,6 +13,7 @@ import MainPage from './Page/MainPage/MainPage';
 import OrderPage from './Page/OrderPage/OrderPage';
 import Post from './Page/PostPage/Post';
 import Story from './Page/Story/Story';
+import Register from './Page/RegisterPage/register';
 function App() {
   return (
     <div className="App">
@@ -27,6 +28,7 @@ function App() {
             <Route path="/order" exact component ={OrderPage} />
             <Route path="/post" exact component ={Post} />
             <Route path="/story" exact component ={Story} />
+            <Route path="/register" exact component = {Register} />
           </Switch>
         </Router>
     </div>

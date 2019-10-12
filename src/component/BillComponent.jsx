@@ -3,14 +3,49 @@ import React, { Component } from 'react';
 
 //import axios
 import axios from 'axios';
+
+import "react-datepicker/dist/react-datepicker.css";
 class BillComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             bills: [],
-            currentBill: {}
+            currentBill: {},
+            temptBils: [],
+            date: ""
         };
     }
+    handleChange = async (e) => {
+        await this.setState({
+            [e.target.name]: e.target.value
+        });
+        this.LiveSearch();
+    };
+    LiveSearch = () => {
+        console.log(this.state.date);
+        console.log(datePick);
+        if (this.state.date === "") {
+            this.setState({
+                bills: this.state.temptBils
+            });
+        } else {
+            var arrDate = this.state.date.split("-");
+            if (arrDate[2].includes("0")) {
+                arrDate[2] = arrDate[2].split("0")[1];
+            }
+            var datePick = arrDate[1] + "/" + arrDate[2] + "/" + arrDate[0];
+            var arr = [];
+            this.state.bills.forEach((item) => {
+                if (item.date === datePick) {
+                    arr.push(item);
+                }
+            })
+            this.setState({
+                bills: arr
+            })
+        }
+    }
+
     componentDidMount = () => {
         this.GetAllBill();
     }
@@ -22,7 +57,8 @@ class BillComponent extends Component {
         return axios(config).then(res => {
             if (res.status === 200 && res.data !== null) {
                 this.setState({
-                    bills: res.data
+                    bills: res.data,
+                    temptBils: res.data
                 });
             }
         })
@@ -32,7 +68,7 @@ class BillComponent extends Component {
         this.state.bills.forEach(item => {
             if (item.id === id) {
                 this.setState({
-                    currentBill: item
+                    currentBill: item,
                 });
                 return;
             }
@@ -58,7 +94,7 @@ class BillComponent extends Component {
         const pagi = this.state.bills !== [] ? this.state.bills.map((item, index) => {
             if (index % 3 === 0) {
                 return (
-                    <li className="page-item">
+                    <li key={index} className="page-item">
                         <a className="page-link" href={`http://localhost:3000/manageBills?page=${index / 3}`}>{index / 3 + 1}</a>
                     </li>
                 )
@@ -78,6 +114,7 @@ class BillComponent extends Component {
                                 <div className="col-md-6">
                                     <h3 className="text-left text-primary font-weight-bold">Bills</h3>
                                 </div>
+                                <input type="date" name="date" onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className="card-body">
@@ -114,7 +151,7 @@ class BillComponent extends Component {
                                 <div className="modal-body">
                                     <div className="form-group">
                                         <div className="input-group">
-                                            <input name="title" className="form-control input-sm" Value={this.state.currentBill.date} readOnly />
+                                            <input name="title" className="form-control input-sm" value={this.state.currentBill.date} readOnly />
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -124,7 +161,7 @@ class BillComponent extends Component {
                                     </div>
                                     <div className="form-group">
                                         <div className="input-group">
-                                            <input readOnly name="title" className="form-control input-sm" Value={this.state.currentBill.total} />
+                                            <input readOnly name="title" className="form-control input-sm" value={this.state.currentBill.total} />
                                         </div>
                                     </div>
                                 </div>

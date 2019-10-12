@@ -66,7 +66,8 @@ class Login extends Component {
                         </div>
                         <div className="form-group">
                             <div className="input-group">
-                                <input className="btn btn-success" type="submit" value="Login"/>
+                                <input className="btn btn-success" style={{marginRight:"10px"}} type="submit" value="Login"/>
+                                <a href="/register" className="btn btn-warning w-30">Register</a>
                             </div>
                         </div>
                     </form>
